@@ -1,0 +1,820 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nails Gaby - Unhas Premium em Piracicaba</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700;800&amp;display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-pink: #ff6b9d;
+            --secondary-pink: #f8bbd9;
+            --nude: #f8f5f2;
+            --gold: #ffd700;
+            --white: #ffffff;
+            --dark: #2d1b69;
+            --glass-bg: rgba(255, 255, 255, 0.15);
+            --glass-border: rgba(255, 255, 255, 0.25);
+            --shadow-light: 0 12px 40px rgba(31, 38, 135, 0.2);
+            --shadow-heavy: 0 25px 70px rgba(31, 38, 135, 0.3);
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.7;
+            color: #4a4a4a;
+            overflow-x: hidden;
+            background: var(--nude);
+        }
+
+        .container {
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 0 32px;
+        }
+
+        /* Navbar - Cleaner */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.92);
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+            z-index: 1000;
+            padding: 1.2rem 0;
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            border-bottom: 1px solid var(--glass-border);
+        }
+
+        nav.scrolled {
+            padding: 0.9rem 0;
+            box-shadow: var(--shadow-light);
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 0 32px;
+        }
+
+        .logo {
+            font-size: 1.9rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--primary-pink), var(--dark));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #555;
+            font-weight: 500;
+            font-size: 1rem;
+            position: relative;
+            transition: all 0.3s ease;
+            letter-spacing: 0.3px;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 50%;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--primary-pink), var(--gold));
+            transition: all 0.3s ease;
+            transform: translateX(-50%);
+        }
+
+        .nav-links a:hover {
+            color: var(--primary-pink);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 6px;
+        }
+
+        .hamburger span {
+            width: 30px;
+            height: 3px;
+            background: #333;
+            transition: all 0.4s ease;
+            border-radius: 3px;
+        }
+
+        .hamburger.active span:nth-child(1) {
+            transform: rotate(45deg) translate(7px, 7px);
+        }
+
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+            transform: translateX(-20px);
+        }
+
+        .hamburger.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(7px, -7px);
+        }
+
+        /* Hero - Better Hierarchy */
+        #hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 25%, #ffeaa7 50%, #fab1a0 100%);
+            background-size: 400% 400%;
+            animation: gradientShift 16s ease infinite;
+            overflow: hidden;
+        }
+
+        @keyframes gradientShift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        .hero-content {
+            text-align: center;
+            color: #fff;
+            z-index: 3;
+            max-width: 800px;
+            padding: 0 40px;
+        }
+
+        .hero-content h1 {
+            font-size: clamp(3.5rem, 9vw, 7rem);
+            font-weight: 800;
+            margin-bottom: 2rem;
+            letter-spacing: -3px;
+            line-height: 1;
+            text-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            opacity: 0;
+            transform: translateY(40px);
+            animation: fadeUpLarge 1.2s 0.2s ease forwards;
+        }
+
+        .hero-content .subtitle {
+            font-size: clamp(1.3rem, 3.5vw, 2rem);
+            font-weight: 300;
+            margin-bottom: 4rem;
+            max-width: 650px;
+            margin-left: auto;
+            margin-right: auto;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeUp 1s 0.6s ease forwards;
+            text-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+
+        .hero-cta {
+            display: inline-flex;
+            align-items: center;
+            gap: 1.2rem;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeUp 1s 1s ease forwards;
+        }
+
+        @keyframes fadeUpLarge {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Particles - Cleaner */
+        .particles {
+            position: absolute;
+            inset: 0;
+            z-index: 1;
+        }
+
+        .particle {
+            position: absolute;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(255,255,255,0.3) 0%, transparent 70%);
+            animation: float 25s infinite linear;
+        }
+
+        .particle:nth-child(1) { width: 100px; height: 100px; left: 15%; animation-delay: 0s; animation-duration: 22s; }
+        .particle:nth-child(2) { width: 150px; height: 150px; left: 75%; animation-delay: -6s; animation-duration: 28s; }
+        .particle:nth-child(3) { width: 80px; height: 80px; left: 85%; animation-delay: -12s; animation-duration: 20s; }
+        .particle:nth-child(4) { width: 120px; height: 120px; left: 25%; animation-delay: -18s; animation-duration: 24s; }
+
+        @keyframes float {
+            0% { transform: translateY(100vh) scale(0); opacity: 0; }
+            10% { opacity: 1; scale: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateY(-20vh) scale(1.2); opacity: 0; }
+        }
+
+        /* Premium Button */
+        .btn-primary {
+            background: linear-gradient(145deg, var(--primary-pink), #e91e63);
+            color: white !important;
+            padding: 1.4rem 3.5rem;
+            border-radius: 60px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.15rem;
+            letter-spacing: 0.5px;
+            transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            box-shadow: 0 15px 50px rgba(255, 107, 157, 0.45);
+            position: relative;
+            overflow: hidden;
+            border: none;
+        }
+
+        .btn-primary::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -120%;
+            width: 120%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+            transition: left 0.7s ease;
+        }
+
+        .btn-primary:hover::before {
+            left: 120%;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-10px) scale(1.05);
+            box-shadow: 0 25px 70px rgba(255, 107, 157, 0.65);
+        }
+
+        /* Sections - Enhanced Spacing */
+        section {
+            padding: 160px 0;
+        }
+
+        section:nth-of-type(even) {
+            background: rgba(255, 255, 255, 0.6);
+        }
+
+        section h2 {
+            font-size: clamp(3rem, 6vw, 5rem);
+            text-align: center;
+            margin-bottom: 6rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--primary-pink), var(--dark));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: -2px;
+            line-height: 1.1;
+        }
+
+        /* Glass Cards - Premium Spacing */
+        .glass-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(25px);
+            border: 1px solid var(--glass-border);
+            border-radius: 32px;
+            padding: 4rem 3rem;
+            box-shadow: var(--shadow-light);
+            transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            position: relative;
+            text-align: center;
+            overflow: hidden;
+            margin-bottom: 2rem;
+        }
+
+        .glass-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, transparent, var(--primary-pink), var(--gold), transparent);
+        }
+
+        .glass-card:hover {
+            transform: translateY(-16px);
+            box-shadow: var(--shadow-heavy);
+            border-color: rgba(255, 107, 157, 0.4);
+        }
+
+        /* Grids - Better Gaps */
+        .gallery-grid, .services-grid, .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+            gap: 3.5rem;
+            margin-top: 1rem;
+        }
+
+        /* Gallery Items */
+        .gallery-item {
+            position: relative;
+            height: 380px;
+            border-radius: 32px;
+            overflow: hidden;
+            box-shadow: var(--shadow-light);
+            transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.8s ease;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.12);
+        }
+
+        .gallery-item::after {
+            content: '✨ Ver Detalhes';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(255,107,157,0.9), rgba(255,215,0,0.2));
+            opacity: 0;
+            transition: opacity 0.5s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+            font-size: 1.3rem;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.5);
+        }
+
+        .gallery-item:hover::after {
+            opacity: 1;
+        }
+
+        /* Service Icons */
+        .service-icon {
+            font-size: 5rem;
+            background: linear-gradient(135deg, var(--primary-pink), var(--gold));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 2rem;
+            height: 120px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .service-card h3 {
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            color: var(--dark);
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+
+        .service-card p {
+            color: #6b7280;
+            margin-bottom: 2.5rem;
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+
+        .price {
+            font-size: 2.5rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--primary-pink), var(--gold));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: -1px;
+        }
+
+        /* Testimonials - Better Hierarchy */
+        #testimonials {
+            background: linear-gradient(135deg, var(--secondary-pink), #fdf2f8);
+        }
+
+        .testimonial-card {
+            padding: 4rem 3rem;
+        }
+
+        .testimonial-text {
+            font-style: italic;
+            font-size: 1.2rem;
+            margin-bottom: 2.5rem;
+            color: var(--dark);
+            line-height: 1.8;
+            font-weight: 400;
+            position: relative;
+        }
+
+        .testimonial-text::before {
+            content: '"';
+            font-size: 4rem;
+            position: absolute;
+            top: -10px;
+            left: 0;
+            color: var(--primary-pink);
+            font-weight: 800;
+        }
+
+        .testimonial-author {
+            font-weight: 700;
+            color: var(--primary-pink);
+            font-size: 1.2rem;
+            letter-spacing: 0.5px;
+        }
+
+        /* Contact - Centered & Spaced */
+        .contact-content {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .contact-content p {
+            font-size: 1.3rem;
+            margin-bottom: 4rem;
+            color: #6b7280;
+            line-height: 1.8;
+        }
+
+        .whatsapp-pulse {
+            animation: pulse 2.5s infinite;
+            font-size: 1.25rem;
+        }
+
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7); }
+            70% { box-shadow: 0 0 0 25px rgba(37, 211, 102, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); }
+        }
+
+        .location {
+            font-size: 1.3rem;
+            color: #6b7280;
+            margin-top: 2rem;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+
+        /* Footer */
+        footer {
+            background: linear-gradient(135deg, var(--dark), #1a1a2e);
+            color: #e2e8f0;
+            text-align: center;
+            padding: 5rem 0 3rem;
+        }
+
+        .social-links {
+            margin-bottom: 2.5rem;
+        }
+
+        .social-links a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 64px;
+            height: 64px;
+            background: rgba(255, 255, 255, 0.12);
+            border-radius: 50%;
+            color: #fff;
+            margin: 0 1.5rem;
+            transition: all 0.4s ease;
+            font-size: 1.4rem;
+            backdrop-filter: blur(15px);
+        }
+
+        .social-links a:hover {
+            background: var(--primary-pink);
+            transform: translateY(-8px) rotate(5deg);
+            box-shadow: 0 15px 40px rgba(255, 107, 157, 0.5);
+        }
+
+        footer p {
+            font-size: 1rem;
+            opacity: 0.9;
+            letter-spacing: 0.3px;
+        }
+
+        /* Responsive Improvements */
+        @media (max-width: 1024px) {
+            .gallery-grid, .services-grid, .testimonials-grid {
+                grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+                gap: 3rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                position: fixed;
+                left: -100%;
+                top: 90px;
+                flex-direction: column;
+                background: rgba(255, 255, 255, 0.98);
+                width: 100%;
+                padding: 4rem 0;
+                gap: 2rem;
+                transition: left 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            }
+
+            .nav-links.active {
+                left: 0;
+            }
+
+            .hamburger {
+                display: flex;
+            }
+
+            section {
+                padding: 100px 0;
+            }
+
+            .container {
+                padding: 0 24px;
+            }
+
+            .nav-container {
+                padding: 0 24px;
+            }
+
+            .glass-card {
+                padding: 3rem 2rem;
+                margin-bottom: 1.5rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero-content {
+                padding: 0 24px;
+            }
+
+            section h2 {
+                margin-bottom: 4rem;
+            }
+        }
+
+        /* Scroll Reveal - Improved */
+        .reveal {
+            opacity: 0;
+            transform: translateY(80px);
+            transition: all 1s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .delay-1 { transition-delay: 0.3s; }
+        .delay-2 { transition-delay: 0.6s; }
+        .delay-3 { transition-delay: 0.9s; }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav id="navbar">
+        <div class="nav-container">
+            <a href="#hero" class="logo">Nails Gaby 💅</a>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#hero">Início</a></li>
+                <li><a href="#gallery">Galeria</a></li>
+                <li><a href="#services">Serviços</a></li>
+                <li><a href="#testimonials">Depoimentos</a></li>
+                <li><a href="#contact">Contato</a></li>
+            </ul>
+            <div class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <section id="hero">
+        <div class="particles" id="particles"></div>
+        <div class="container">
+            <div class="hero-content">
+                <h1>Nails Gaby</h1>
+                <p class="subtitle">Unhas premium que transformam sua beleza natural em algo extraordinário. Elegância em cada detalhe.</p>
+                <div class="hero-cta">
+                    <a href="https://wa.me/5519997078706?text=Oi%20Gaby!%20Quero%20agendar%20um%20hor%C3%A1rio%20💅" class="btn-primary whatsapp-pulse" target="_blank">
+                        <i class="fab fa-whatsapp"></i> Agendar Agora
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery -->
+    <section id="gallery">
+        <div class="container">
+            <h2>Galeria Premium</h2>
+            <div class="gallery-grid">
+                <div class="gallery-item reveal delay-1">
+                    <img src="imagem1.jpg" alt="Nail Art Premium">
+                </div>
+                <div class="gallery-item reveal delay-2">
+                    <img src="imagem2.png" alt="Gel Extension">
+                </div>
+                <div class="gallery-item reveal delay-3">
+                    <img src="https://images.unsplash.com/photo-1587729927069-ef3b7a5ab9b4?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTE4fHxGcmVuY2glMjBNYW5pY3VyZXxlbnwwfHwwfHx8MA%3D%3D" alt="French Manicure">
+                </div>
+                <div class="gallery-item reveal delay-1">
+                    <img src="https://images.unsplash.com/photo-1743617206507-447c78118622?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NTF8fE5haWwlMjBEZXNpZ258ZW58MHx8MHx8fDA%3D" alt="Nail Design">
+                </div>
+                <div class="gallery-item reveal delay-2">
+                    <img src="https://images.unsplash.com/photo-1519014816548-bf5fe059798b?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8QWNyeWxpYyUyME5haWxzfGVufDB8fDB8fHww" alt="Acrylic Nails">
+                </div>
+                <div class="gallery-item reveal delay-3">
+                    <img src="https://media.istockphoto.com/id/2251291492/pt/foto/nails-with-nude-polish.webp?a=1&b=1&s=612x612&w=0&k=20&c=CWQ58ygMkKt1-HFCaYyx1CUxpUlcxBB9qIJXnkXDbEw=" alt="Nail Art Premium">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services -->
+    <section id="services">
+        <div class="container">
+            <h2>Nossos Serviços Premium</h2>
+            <div class="services-grid">
+                <div class="glass-card service-card reveal delay-1">
+                    <div class="service-icon">
+                        <i class="fas fa-gem"></i>
+                    </div>
+                    <h3>Alongamento em Gel</h3>
+                    <p>Técnica moderna e duradoura para unhas longas, elegantes e naturalmente perfeitas. Resultados profissionais que duram semanas.</p>
+                    <div class="price">R$ 150</div>
+                </div>
+                <div class="glass-card service-card reveal delay-2">
+                    <div class="service-icon">
+                        <i class="fas fa-tools"></i>
+                    </div>
+                    <h3>Manutenção Completa</h3>
+                    <p>Manutenção profissional para manter suas unhas sempre impecáveis com acabamento perfeito.</p>
+                    <div class="price">R$ 90</div>
+                </div>
+                <div class="glass-card service-card reveal delay-3">
+                    <div class="service-icon">
+                        <i class="fas fa-paint-brush"></i>
+                    </div>
+                    <h3>Esmaltação Premium</h3>
+                    <p>Esmaltação tradicional com esmaltes de alta qualidade e acabamento impecável.</p>
+                    <div class="price">R$ 50</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section id="testimonials">
+        <div class="container">
+            <h2>Depoimentos de Clientes</h2>
+            <div class="testimonials-grid">
+                <div class="glass-card testimonial-card reveal delay-1">
+                    <div class="testimonial-text">
+                        Minhas unhas nunca ficaram tão perfeitas! Gaby é simplesmente incrível, super atenciosa e caprichosa nos detalhes.
+                    </div>
+                    <div class="testimonial-author">Ana Silva</div>
+                </div>
+                <div class="glass-card testimonial-card reveal delay-2">
+                    <div class="testimonial-text">
+                        Resultado maravilhoso! As unhas ficaram lindas e duraram muito tempo. Super recomendo o trabalho dela.
+                    </div>
+                    <div class="testimonial-author">Maria Oliveira</div>
+                </div>
+                <div class="glass-card testimonial-card reveal delay-3">
+                    <div class="testimonial-text">
+                        Melhor nail designer de Piracicaba! Sempre inovando nos designs com excelente acabamento e durabilidade.
+                    </div>
+                    <div class="testimonial-author">Juliana Costa</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact -->
+    <section id="contact">
+        <div class="container">
+            <h2>Agende Seu Horário</h2>
+            <div class="contact-content reveal delay-1">
+                <p>Transforme suas unhas com o melhor atendimento premium de Piracicaba. Clique abaixo e receba atendimento personalizado.</p>
+                <a href="https://wa.me/5519997078706?text=Oi%20Gaby!%20Quero%20agendar%20um%20hor%C3%A1rio%20💅" class="btn-primary whatsapp-pulse" target="_blank">
+                    <i class="fab fa-whatsapp"></i> Falar com Gaby no WhatsApp
+                </a>
+                <div class="location">
+                    <i class="fas fa-map-marker-alt" style="color: var(--primary-pink); margin-right: 0.5rem;"></i>
+                    Piracicaba - SP
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="social-links">
+                <a href="#" target="_blank" title="Instagram"><i class="fab fa-instagram"></i></a>
+                <a href="https://wa.me/5519997078706" target="_blank" title="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+            </div>
+            <p>&copy; 2024 Nails Gaby. Unhas Premium em Piracicaba. Todos os direitos reservados.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Enhanced Mobile Navigation
+        const hamburger = document.getElementById('hamburger');
+        const navLinks = document.getElementById('navLinks');
+        const navbar = document.getElementById('navbar');
+
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            navLinks.classList.toggle('active');
+            document.body.classList.toggle('no-scroll');
+        });
+
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                hamburger.classList.remove('active');
+                navLinks.classList.remove('active');
+                document.body.classList.remove('no-scroll');
+            });
+        });
+
+        // Navbar Effects
+        window.addEventListener('scroll', () => {
+            navbar.classList.toggle('scrolled', window.scrollY > 50);
+        });
+
+        // Premium Particles
+        function createParticles() {
+            const container = document.getElementById('particles');
+            for (let i = 0; i < 4; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.animationDuration = (20 + Math.random() * 15) + 's';
+                particle.style.animationDelay = `-${Math.random() * 25}s`;
+                container.appendChild(particle);
+            }
+        }
+
+        // Advanced Scroll Reveal
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry, index) => {
+                if (entry.isIntersecting) {
+                    setTimeout(() => entry.target.classList.add('active'), index * 150);
+                }
+            });
+        }, { threshold: 0.15, rootMargin: '0px 0px -80px 0px' });
+
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+        // Smooth Scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', e => {
+                e.preventDefault();
+                const target = document.querySelector(anchor.getAttribute('href'));
+                target?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            });
+        });
+
+        // Initialize
+        createParticles();
+        window.dispatchEvent(new Event('scroll'));
+    </script>
+</body>
+</html>
